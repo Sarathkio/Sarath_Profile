@@ -251,3 +251,21 @@ if (localStorage.getItem('theme') === 'dark') {
   moonIcon.classList.remove('bi-moon');
   moonIcon.classList.add('bi-sun');
 }
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.querySelector(".show-more-btn");
+  const moreItems = document.querySelector(".more-items");
+
+  btn.addEventListener("click", function () {
+    if (moreItems.style.display === "none") {
+      moreItems.style.display = "block";
+      btn.textContent = "Show Less";
+    } else {
+      moreItems.style.display = "none";
+      btn.textContent = "Show More";
+    }
+  });
+});
