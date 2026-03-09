@@ -8,9 +8,9 @@
 :root { 
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #272829; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #007d2a; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #0c9462fd;
-  --secondary-color: #0c9462fd;; /* Light lavender */ /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --heading-color: #000a7d; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #1e0c94fd;
+  --secondary-color: #0c3094fd;; /* Light lavender */ /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -97,8 +97,8 @@ body.dark-mode {
   --background-color: #121212;
   --default-color: #e0e0e0;
   --heading-color: #ffffff;
-  --accent-color:#0c9462fd;
-  --secondary-color:#0c9462fd;
+  --accent-color:#290c94fd;
+  --secondary-color:#0c2e94fd;
   --surface-color: #1e1e1e;
   --contrast-color: #ffffff;
 
@@ -107,7 +107,7 @@ body.dark-mode {
   --nav-mobile-background-color: #1f1f1f;
   --nav-dropdown-background-color: #1f1f1f;
   --nav-dropdown-color: #e0e0e0;
-  --nav-dropdown-hover-color:#0c9462fd;
+  --nav-dropdown-hover-color:#0c2c94fd;
 }
 
 /* Dark Mode Styling for Button */
@@ -274,7 +274,7 @@ h6 {
 .header {
   color: var(--default-color);
   /* background-color: #3e1c56f2 ; */
-  background: linear-gradient(90deg, rgb(5, 103, 62), rgba(0, 0, 0, 0.763)); 
+  background: linear-gradient(90deg, rgb(13, 5, 103), rgb(1, 23, 52)); 
 
   position: fixed;
   top: 0;
@@ -526,7 +526,7 @@ h6 {
 --------------------------------------------------------------*/
 .footer {
   color: var(--default-color);
-  background-color: rgba(0, 128, 0, 0.119);
+  background-color: rgba(11, 13, 115, 0.002);
   font-size: 14px;
   padding: 40px 0;
   position: relative;
@@ -820,7 +820,7 @@ section,
   display: inline-block;
   padding: 12px 24px;
   color: #fff;
-  background: linear-gradient(90deg, rgb(10, 102, 125), rgb(3, 120, 62)); /* Gradient from dark to medium purple */
+  background: linear-gradient(90deg, rgb(18, 10, 125), rgb(46, 28, 148)); /* Gradient from dark to medium purple */
   border: none;
   border-radius: 8px;
   text-decoration: none;
@@ -834,7 +834,7 @@ section,
 /* Button hover effect with 3D transform */
 .butterfly-btn:hover {
   transform: translateY(-3px) scale(1.05) rotate(1deg);
-  box-shadow: 0px 10px 20px rgb(8, 150, 62);
+  box-shadow: 0px 10px 20px rgb(8, 32, 150);
 }
 
 /* Decorative circles on hover */
@@ -844,7 +844,7 @@ section,
   border-radius: 50%;
   width: 15px;
   height: 15px;
-  background-color: #098b1a;
+  background-color: #37098b;
   opacity: 0;
   transition: all 0.4s ease;
 }
@@ -926,7 +926,7 @@ section,
 .bubble {
   position: absolute;
   border-radius: 50%; /* Creates a circular bubble */
-  background: linear-gradient(90deg, rgba(219, 214, 223, 0.765), rgb(6, 141, 51)); /* Gradient from dark to medium purple */
+  background: linear-gradient(90deg, rgba(219, 214, 223, 0.765), rgb(6, 6, 141)); /* Gradient from dark to medium purple */
   box-shadow: 0 0 10px rgba(142, 124, 124, 0.881); /* Adds shadow for depth */
 }
 
@@ -1271,7 +1271,7 @@ body.dark-mode .skill-heading {
 --------------------------------------------------------------*/
 .featured-services .service-item {
   background-color: var(--surface-color);
-  box-shadow: 0px 0 25px 0 rgba(24, 162, 6, 0.132);
+  box-shadow: 0px 0 25px 0 rgba(5, 80, 117, 0.132);
   padding: 50px 30px;
   transition: all 0.3s ease-in-out;
   height: 100%;
@@ -1324,7 +1324,7 @@ body.dark-mode .skill-heading {
 
 .featured-services .service-item:hover:before {
   /* background: linear-gradient(90deg, rgb(0, 76, 86), rgb(2, 72, 102));  */
- background: linear-gradient(90deg, rgb(0, 76, 86), rgb(12, 102, 2)); 
+ background: linear-gradient(90deg, rgba(0, 7, 86, 0.486), rgba(2, 45, 102, 0.555)); 
 
   inset: 0;
   border-radius: 0px;
