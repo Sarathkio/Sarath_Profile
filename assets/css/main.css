@@ -1394,7 +1394,7 @@ body.dark-mode .skill-heading {
 }
 
 .featured-projects .project-item:hover:before {
-  background: linear-gradient(90deg, rgb(93, 124, 132), rgb(127, 75, 36)); /* Gradient from dark to medium purple */
+  background: linear-gradient(90deg, rgb(49, 31, 142), rgb(36, 80, 127)); /* Gradient from dark to medium purple */
   inset: 0;
   border-radius: 0px;
 }
