@@ -491,45 +491,51 @@
             </div>
 
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-              <h3 class="resume-title">Professional Experience</h3>
+  <h3 class="resume-title">Professional Experience</h3>
 
-             <div class="resume-item">
-              <h4>Computational Intelligence Research Foundation</h4>
-              <h5>2024 - Present</h5>
-              <p><em>Chennai, Tamil Nadu</em></p>
+  <!-- Experience 1 -->
+  <div class="resume-item">
+    <h4>Software Developer</h4>
+    <h5>2024 - Present (2 Years Experience)</h5>
+    <p><em>Computational Intelligence Research Foundation, Chennai, Tamil Nadu</em></p>
 
-              <ul class="experience-list">
-                <li>Revamped the Research Module using Python, Django, JavaScript, Bootstrap, and RESTful APIs, delivering a scalable containerized architecture that improved system performance and reduced downtime by 20%.</li>
-                <li>Redesigned and optimized user interfaces using HTML, CSS, JavaScript, and Bootstrap, resulting in a 15% drop in bounce rate and a 25% increase in user engagement.</li>
-                <li>Utilized Python, Django, and RESTful APIs to build and maintain high-performing, scalable web applications.</li>
+    <ul class="experience-list">
+      <li>Revamped the Research Module using Python, Django, JavaScript, Bootstrap, and RESTful APIs, improving system performance and reducing downtime by 20%.</li>
+      <li>Redesigned and optimized UI using HTML, CSS, JavaScript, and Bootstrap, achieving a 25% increase in user engagement.</li>
+      <li>Developed and maintained scalable web applications using Python and Django.</li>
 
-                <!-- Hidden Items -->
-                <div class="more-items" style="display: none;">
-                  <li>Developed responsive and mobile-friendly interfaces using JavaScript, Bootstrap, and CSS3.</li>
-                  <li>Enhanced PostgreSQL and MySQL performance by designing efficient schemas and optimizing SQL queries.</li>
-                  <li>Integrated Generative AI (GenAI) and LLM-based features for intelligent content creation and automation.</li>
-                  <li>Diagnosed and resolved backend and frontend bottlenecks, improving speed, scalability, and security.</li>
-                  <li>Collaborated with cross-functional teams on version control and deployment using Git and cPanel.</li>
-                  <li>Provided technical guidance to student trainees, ensuring adherence to clean architecture and coding standards.</li>
-                  <li>Contributed to UI/UX design, website content development, and digital marketing materials using Canva.</li>
-                  <li>Supported the publication of IEEE research papers by editing, reviewing, and validating academic content.</li>
-                </div>
-              </ul>
+      <!-- Hidden Items -->
+      <div class="more-items" style="display: none;">
+        <li>Built responsive and mobile-friendly interfaces using modern frontend technologies.</li>
+        <li>Optimized PostgreSQL and MySQL queries for improved database performance.</li>
+        <li>Integrated Generative AI (GenAI) and LLM-based features for automation and smart content generation.</li>
+        <li>Resolved backend and frontend performance issues, improving scalability and security.</li>
+        <li>Collaborated with teams using Git and handled deployments via cPanel.</li>
+        <li>Mentored student trainees on clean code practices and project architecture.</li>
+        <li>Contributed to UI/UX design and digital content using Canva.</li>
+        <li>Supported IEEE paper publication through editing and technical validation.</li>
+      </div>
+    </ul>
 
-              <!-- Show More Button -->
-              <button class="btn btn-primary mt-2 show-more-btn" style="background-color: #161072; border-color: #0d2579;">Show More</button>
-            </div>
+    <!-- Show More Button -->
+    <button class="btn btn-primary mt-2 show-more-btn"
+      style="background-color: #161072; border-color: #0d2579;">
+      Show More
+    </button>
+  </div>
 
-              <div class="resume-item">
-                <h4>Python Full Stack Developer Trainee Engineer</h4>
-                <h5>June 2023 - Nov 2023 </h5>
-                <p><em>Banglore , India</em></p>
-                <ul>
-                  <li>Proficiency in front-end programming using HTML, CSS, and JavaScript allows for the creation of aesthetically appealing user interfaces with intuitive navigation and a steady 95% or higher customer satisfaction rating.</li>
-                  <li>With a demonstrated track record of developing and refining RESTful APIs, Datascince, a Python and Django Web framework specialist, ensures smooth communication between front-end and back-end systems, leading to a 20% improvement in overall system efficiency.</li>
-                </ul>
-              </div><!-- Edn Resume Item -->
-  
+  <!-- Experience 2 -->
+  <div class="resume-item">
+    <h4>Python Full Stack Developer Trainee</h4>
+    <h5>June 2023 - Nov 2023</h5>
+    <p><em>Bangalore, India</em></p>
+
+    <ul>
+      <li>Developed responsive UI using HTML, CSS, and JavaScript, ensuring smooth user experience and high usability.</li>
+      <li>Worked with Python and Django to build RESTful APIs, improving system efficiency by 20%.</li>
+      <li>Gained hands-on experience in full-stack development, debugging, and deployment processes.</li>
+    </ul>
+  </div>
             </div>
 
           </div>
@@ -814,8 +820,31 @@
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-rocket"></i>  </i></a>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+
+<!-- Preloader -->
+<div id="preloader">
+  <div class="loader-container">
+    <div class="rule"></div>
+
+    <h1 class="loader-text" id="loaderText" aria-label="Sarathkumar"></h1>
+
+    <p class="loader-tagline">Software Developer</p>
+
+    <div class="progress-wrap">
+      <div class="counter-row">
+        <span class="counter-label">Loading</span>
+        <span class="counter-num" id="counterNum">0%</span>
+      </div>
+      <div class="loader-bar-track">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+    </div>
+
+    <div class="rule-bottom"></div>
+  </div>
+</div>
+
+
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -893,6 +922,67 @@ function sendEmail(event) {
         document.querySelector('.loading').style.display = 'none'; // Hide loading message
     });
 }
+</script>
+
+
+<script>
+  const text = "Sarathkumar";
+  let index = 0;
+
+  const loaderText = document.getElementById("loaderText");
+  const counter = document.getElementById("counterNum");
+  const bar = document.getElementById("loaderBar");
+
+  let count = 0;
+  let typingDone = false;
+  let progressDone = false;
+
+  // ✅ Slower Typing Effect
+  function typeEffect() {
+    if (index < text.length) {
+      loaderText.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(typeEffect, 180); // slower typing
+    } else {
+      typingDone = true;
+      checkFinish();
+    }
+  }
+
+  // ✅ Smooth Slow Progress (~5 sec)
+  function loadProgress() {
+    let duration = 5000; // 5 seconds
+    let interval = duration / 100;
+
+    let progressInterval = setInterval(() => {
+      count++;
+      counter.innerText = count + "%";
+      bar.style.width = count + "%";
+
+      if (count >= 100) {
+        clearInterval(progressInterval);
+        progressDone = true;
+        checkFinish();
+      }
+    }, interval);
+  }
+
+  // ✅ Finish only when both complete
+  function checkFinish() {
+    if (typingDone && progressDone) {
+      setTimeout(() => {
+        const preloader = document.getElementById("preloader");
+        preloader.style.opacity = "0";
+        preloader.style.visibility = "hidden";
+        preloader.style.transition = "0.8s ease";
+      }, 500); // smooth delay
+    }
+  }
+
+  window.onload = function () {
+    typeEffect();
+    loadProgress();
+  };
 </script>
 </body>
 

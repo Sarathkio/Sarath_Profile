@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preloader – Sarathkumar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+
+  /* ── Preloader ── */
+  #preloader {
+    position: fixed;
+    inset: 0;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+
+  #preloader.done {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* corner marks */
+  .corner {
+    position: fixed;
+    width: clamp(18px, 3vw, 26px);
+    height: clamp(18px, 3vw, 26px);
+    opacity: 0;
+    animation: fadeIn 0.5s ease 1.2s forwards;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: clamp(16px,3vw,30px); left: clamp(16px,3vw,30px); }
+  .corner-tr { top: clamp(16px,3vw,30px); right: clamp(16px,3vw,30px); transform: rotate(90deg); }
+  .corner-bl { bottom: clamp(16px,3vw,30px); left: clamp(16px,3vw,30px); transform: rotate(-90deg); }
+  .corner-br { bottom: clamp(16px,3vw,30px); right: clamp(16px,3vw,30px); transform: rotate(180deg); }
+
+  @keyframes fadeIn { to { opacity: 0.4; } }
+
+  /* container */
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(16px, 3.5vw, 32px);
+    width: min(520px, 88vw);
+    padding: 0 clamp(16px, 4vw, 40px);
+  }
+
+  /* top rule */
+  .rule {
+    width: 100%;
+    height: 1px;
+    background: #222;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: ruleIn 0.7s ease 0.1s forwards;
+  }
+  @keyframes ruleIn { to { transform: scaleX(1); } }
+
+  /* name */
+  .loader-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2rem, 9vw, 4.2rem);
+    font-weight: 700;
+    letter-spacing: clamp(0.12em, 1.8vw, 0.32em);
+    text-transform: uppercase;
+    display: flex;
+    line-height: 1;
+  }
+
+  .char {
+    display: inline-block;
+    color: #f0ede6;
+    opacity: 0;
+    transform: translateY(36px) rotateX(-50deg);
+    animation: charIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes charIn {
+    to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+  }
+
+  /* tagline */
+  .loader-tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+    letter-spacing: 0.28em;
+    color: #555;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.5s ease 1s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* progress section */
+  .progress-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 0.4s ease 0.5s forwards;
+  }
+
+  .counter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .counter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.58rem, 1.6vw, 0.7rem);
+    color: #444;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .counter-num {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.62rem, 1.8vw, 0.75rem);
+    color: #c8a96e;
+    letter-spacing: 0.08em;
+    font-feature-settings: 'tnum';
+    min-width: 3.2ch;
+    text-align: right;
+  }
+
+  .loader-bar-track {
+    width: 100%;
+    height: 1px;
+    background: #1c1c1c;
+    position: relative;
+    overflow: visible;
+  }
+
+  .loader-bar {
+    height: 100%;
+    width: 0%;
+    background: #c8a96e;
+    position: relative;
+    transition: none;
+  }
+
+  /* glowing dot at tip */
+  .loader-bar::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: -3px;
+    width: 5px;
+    height: 7px;
+    background: #e8c98a;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 2px rgba(200,169,110,0.7);
+  }
+
+  /* bottom rule */
+  .rule-bottom {
+    width: 100%;
+    height: 1px;
+    background: #1a1a1a;
+    transform: scaleX(0);
+    transform-origin: right;
+    animation: ruleIn 0.7s ease 0.3s forwards;
+  }
+
+  /* ── Page content (shown after preloader) ── */
+  #page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.2s;
+  }
+  #page.visible { opacity: 1; }
+
+  #page h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    color: #f0ede6;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  #page p {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: #444;
+    letter-spacing: 0.2em;
+    margin-top: 14px;
+    text-transform: uppercase;
+  }
+
+  .replay-btn {
+    margin-top: 36px;
+    padding: 11px 32px;
+    background: transparent;
+    border: 1px solid #c8a96e;
+    color: #c8a96e;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+  }
+  .replay-btn:hover { background: #c8a96e; color: #0a0a0a; }
+</style>
+</head>
+<body>
+
+<!-- Corner marks -->
+<div class="corner corner-tl">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5">
+    <path d="M2 12V2H12"/>
+  </svg>
+</div>
+<div class="corner corner-tr">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5">
+    <path d="M2 12V2H12"/>
+  </svg>
+</div>
+<div class="corner corner-bl">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5">
+    <path d="M2 12V2H12"/>
+  </svg>
+</div>
+<div class="corner corner-br">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.5">
+    <path d="M2 12V2H12"/>
+  </svg>
+</div>
+
+<!-- Preloader -->
+<div id="preloader">
+  <div class="loader-container">
+    <div class="rule"></div>
+
+    <h1 class="loader-text" id="loaderText" aria-label="Sarathkumar"></h1>
+
+    <p class="loader-tagline">Software Developer</p>
+
+    <div class="progress-wrap">
+      <div class="counter-row">
+        <span class="counter-label">Loading</span>
+        <span class="counter-num" id="counterNum">0%</span>
+      </div>
+      <div class="loader-bar-track">
+        <div class="loader-bar" id="loaderBar"></div>
+      </div>
+    </div>
+
+    <div class="rule-bottom"></div>
+  </div>
+</div>
+
+
+<script>
+  const NAME = "Sarathkumar";
+
+  function buildChars() {
+    const el = document.getElementById('loaderText');
+    el.innerHTML = '';
+    NAME.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = ch;
+      span.style.animationDelay = (0.12 + i * 0.058) + 's';
+      el.appendChild(span);
+    });
+  }
+
+  // Keyframe stops for the bar (ms → %)
+  const STOPS = [
+    [0,    0],
+    [400,  0],
+    [700,  18],
+    [1100, 42],
+    [1600, 67],
+    [2000, 85],
+    [2600, 100],
+  ];
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function getBarWidth(elapsed) {
+    for (let i = 1; i < STOPS.length; i++) {
+      const [t0, v0] = STOPS[i - 1];
+      const [t1, v1] = STOPS[i];
+      if (elapsed <= t1) {
+        const t = (elapsed - t0) / (t1 - t0);
+        return lerp(v0, v1, Math.min(t, 1));
+      }
+    }
+    return 100;
+  }
+
+  function startPreloader() {
+    const pre    = document.getElementById('preloader');
+    const bar    = document.getElementById('loaderBar');
+    const num    = document.getElementById('counterNum');
+    const page   = document.getElementById('page');
+
+    // reset
+    pre.classList.remove('done');
+    page.classList.remove('visible');
+    bar.style.width = '0%';
+    num.textContent = '0%';
+    buildChars();
+
+    const startTime = performance.now();
+    const totalDuration = 2700;
+
+    function tick(now) {
+      const elapsed = now - startTime;
+      const w = getBarWidth(elapsed);
+      bar.style.width = w.toFixed(1) + '%';
+      num.textContent  = Math.round(w) + '%';
+
+      if (elapsed < totalDuration) {
+        requestAnimationFrame(tick);
+      } else {
+        bar.style.width = '100%';
+        num.textContent  = '100%';
+        setTimeout(() => {
+          pre.classList.add('done');
+          page.classList.add('visible');
+        }, 400);
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  // Run on load
+  startPreloader();
+</script>
+</body>
+</html>
