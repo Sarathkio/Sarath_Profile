@@ -4,17 +4,31 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Sarath_Profile</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>Sarath Kumar | Python Developer | Full Stack Developer | Software Engineer</title>
+  <meta name="description" content="Sarath Kumar is a Software Developer with 2+ years of experience in Python, Django, Flask, HTML, CSS, JavaScript, MySQL, REST APIs, and Generative AI. Explore projects, experience, and professional portfolio.">
+  <meta name="keywords" content="Sarath Kumar, Python Developer, Full Stack Developer, Django Developer, Flask Developer, Software Engineer, Web Developer, Python Programmer, Chennai Developer, Backend Developer, Frontend Developer, Portfolio Website, Generative AI Developer">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Sarath Kumar - Python Full Stack Developer with 2+ Years Experience">
+  <meta property="og:description" content="Sarath Kumar is a Software Developer with 2+ years of experience in Python, Django, Flask, HTML, CSS, JavaScript, MySQL, REST APIs, and Generative AI.">
+  <meta property="og:image" content="https://sarathkio.github.io/portfolio/assets/img/sarath-main.jpeg">
+  <meta property="og:url" content="https://sarathkio.github.io/portfolio">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter SEO -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sarath Kumar - Python Full Stack Developer">
+  <meta name="twitter:description" content="Software Developer with 2+ years of experience in Python, Django, Flask, REST APIs, and Generative AI.">
+  <meta name="twitter:image" content="https://sarathkio.github.io/portfolio/assets/img/sarath-main.jpeg">
 
   <!-- Favicons -->
   <link href="assets/img/favicon_io/favicon-32x32.png" rel="icon">
   <link href="assets/img/favicon_io/apple-touch-icon.png" rel="apple-touch-icon">
 
+  
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +36,9 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
@@ -33,20 +50,44 @@
 
 
 
+
+  <!-- JSON-LD Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Sarath Kumar",
+    "jobTitle": "Software Developer",
+    "url": "https://sarathkio.github.io/portfolio",
+    "sameAs": [
+      "https://github.com/Sarathkio",
+      "https://www.linkedin.com/in/sarathkumar9843/"
+    ],
+    "knowsAbout": [
+      "Python", "Django", "Flask", "JavaScript", "MySQL", "REST APIs", "Generative AI", "Software Development"
+    ]
+  }
+  </script>
+
 </head>
 
 <body class="index-page">
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+  </script>
   <!--header Section Start-->
-    <header id="header" class="header dark-background d-flex flex-column">
+    <header id="header" class="header d-flex align-items-center">
       <i class="header-toggle d-xl-none bi bi-list"></i>
 
       <div class="profile-img">
-        <img src="assets/img/image.png" alt="" class="img-fluid rounded-circle">
+        <img loading="lazy" src="assets/img/image.png" alt="" class="img-fluid rounded-circle">
       </div>
 
       <a href="index.html" class="logo d-flex align-items-center justify-content-center">
         
-        <h1 class="sitename">Sarathkumar R</h1>
+        <span class="sitename h1-style">Sarathkumar R</span>
       </a>
 
       <div class="social-links text-center">
@@ -80,7 +121,7 @@
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
     <!-- Heading with flying animation -->
-    <h2 class="fly-in-text">Sarathkumar R</h2>
+    <h1 class="fly-in-text">Sarathkumar R</h1>
 
     <p>I'm <span class="typed" data-typed-items="Software Developer, Python Developer, Freelancer">Software Developer</span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
 
@@ -113,7 +154,7 @@
       <div class="row gy-4 justify-content-center">
           <!-- Image with Bubbles -->
           <div class="col-lg-4 position-relative bubble-container">
-              <img src="assets/img/Sarath_bio1.jpg" class="img-fluid rounded" alt="Sarathkumar">
+              <img loading="lazy" src="assets/img/Sarath_bio1.jpg" class="img-fluid rounded" alt="Sarathkumar">
               <div class="bubble top-left"></div>
               <div class="bubble top-right"></div>
               <div class="bubble bottom-left"></div>
@@ -659,7 +700,7 @@
                   <span>Sarathkumar, our gifted software developer, created a feature-rich, responsive website for us. His excellent cooperation and time management abilities guarantee the timely delivery of excellent results.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
-                <img src="assets/img/testimonials/Doreen.jpeg" class="testimonial-img" alt="">
+                <img loading="lazy" src="assets/img/testimonials/Doreen.jpeg" class="testimonial-img" alt="">
                 <h3>Dr. D. Doreen Robin</h3>
                 <h4>Ceo &amp; Founder</h4>
               </div>
@@ -672,7 +713,7 @@
                   <span>Sarathkumar is a vital member of our development team, showcasing exceptional leadership skills. He consistently delivers high-quality, functional work that advances our projects</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
-                <img src="assets/img/testimonials/Rene Robin.jpeg" class="testimonial-img" alt="">
+                <img loading="lazy" src="assets/img/testimonials/Rene Robin.jpeg" class="testimonial-img" alt="">
                 <h3>Dr. C. R. Rene Robin</h3>
                 <h4>Ceo &amp; Founder</h4>
               </div>
@@ -685,7 +726,7 @@
                   <span>Sarathkumar is a well-liked individual with a strong work ethic and an optimistic outlook. He is also a recognized member of CIRF. He manages his important responsibilities well while encouraging teamwork.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
-                <img src="assets/img/testimonials/Durairaj.jpeg" class="testimonial-img" alt="">
+                <img loading="lazy" src="assets/img/testimonials/Durairaj.jpeg" class="testimonial-img" alt="">
                 <h3>Dr.N.Durairaj</h3>
                 <h4>Ceo &amp; Founder</h4>
               </div>
@@ -698,7 +739,7 @@
                   <span>Sarathkumar is known for his exceptional interpersonal skills and has integrated seamlessly with both our CIRF team and Bethel. His collaboration enhances our work environment.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
-                <img src="assets/img/testimonials/Florence.jpeg" class="testimonial-img" alt="">
+                <img loading="lazy" src="assets/img/testimonials/Florence.jpeg" class="testimonial-img" alt="">
                 <h3>Dr.Mrs.Florence Durairaj</h3>
                 <h4>Ceo &amp; Founder</h4>
               </div>
@@ -822,27 +863,7 @@
 
 
 <!-- Preloader -->
-<div id="preloader">
-  <div class="loader-container">
-    <div class="rule"></div>
-
-    <h1 class="loader-text" id="loaderText" aria-label="Sarathkumar"></h1>
-
-    <p class="loader-tagline">Software Developer</p>
-
-    <div class="progress-wrap">
-      <div class="counter-row">
-        <span class="counter-label">Loading</span>
-        <span class="counter-num" id="counterNum">0%</span>
-      </div>
-      <div class="loader-bar-track">
-        <div class="loader-bar" id="loaderBar"></div>
-      </div>
-    </div>
-
-    <div class="rule-bottom"></div>
-  </div>
-</div>
+<div id="preloader"></div>
 
 
 
@@ -925,65 +946,7 @@ function sendEmail(event) {
 </script>
 
 
-<script>
-  const text = "Sarathkumar";
-  let index = 0;
 
-  const loaderText = document.getElementById("loaderText");
-  const counter = document.getElementById("counterNum");
-  const bar = document.getElementById("loaderBar");
-
-  let count = 0;
-  let typingDone = false;
-  let progressDone = false;
-
-  // ✅ Slower Typing Effect
-  function typeEffect() {
-    if (index < text.length) {
-      loaderText.innerHTML += text.charAt(index);
-      index++;
-      setTimeout(typeEffect, 180); // slower typing
-    } else {
-      typingDone = true;
-      checkFinish();
-    }
-  }
-
-  // ✅ Smooth Slow Progress (~5 sec)
-  function loadProgress() {
-    let duration = 5000; // 5 seconds
-    let interval = duration / 100;
-
-    let progressInterval = setInterval(() => {
-      count++;
-      counter.innerText = count + "%";
-      bar.style.width = count + "%";
-
-      if (count >= 100) {
-        clearInterval(progressInterval);
-        progressDone = true;
-        checkFinish();
-      }
-    }, interval);
-  }
-
-  // ✅ Finish only when both complete
-  function checkFinish() {
-    if (typingDone && progressDone) {
-      setTimeout(() => {
-        const preloader = document.getElementById("preloader");
-        preloader.style.opacity = "0";
-        preloader.style.visibility = "hidden";
-        preloader.style.transition = "0.8s ease";
-      }, 500); // smooth delay
-    }
-  }
-
-  window.onload = function () {
-    typeEffect();
-    loadProgress();
-  };
-</script>
 </body>
 
 </html>

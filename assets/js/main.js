@@ -8,22 +8,72 @@
   const headerToggleBtn = document.querySelector('.header-toggle');
 
   function headerToggle() {
-    document.querySelector('#header').classList.toggle('header-show');
+    const header = document.querySelector('#header');
+    header.classList.toggle('header-show');
     headerToggleBtn.classList.toggle('bi-list');
     headerToggleBtn.classList.toggle('bi-x');
+    
+    const navmenu = document.querySelector('.navmenu');
+    if(navmenu) navmenu.classList.toggle('active');
+    
+    let overlay = document.querySelector('.sidebar-overlay');
+    if(overlay) overlay.classList.toggle('active');
+
+    // Toggle background scrolling on mobile
+    if (header.classList.contains('header-show')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
-  headerToggleBtn.addEventListener('click', headerToggle);
+  if(headerToggleBtn) {
+    headerToggleBtn.addEventListener('click', headerToggle);
+  }
 
   /**
-   * Hide mobile nav on same-page/hash links
+   * Robust touch/click handler for mobile navigation links
    */
-  document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
-      if (document.querySelector('.header-show')) {
-        headerToggle();
+  document.querySelectorAll('#navmenu a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const isHomepage = window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/') || window.location.pathname === '' || window.location.pathname.split('/').pop() === '';
+      const href = link.getAttribute('href');
+
+      if (href && (href.startsWith('index.html#') || href.startsWith('#'))) {
+        const hash = href.substring(href.indexOf('#'));
+        
+        if (isHomepage) {
+          e.preventDefault();
+
+          const targetElement = document.querySelector(hash);
+          if (targetElement) {
+            // Close mobile menu if open
+            if (document.querySelector('.header-show')) {
+              headerToggle();
+            }
+
+            // Scroll to target
+            const scrollMarginTop = parseInt(getComputedStyle(targetElement).scrollMarginTop) || 0;
+            window.scrollTo({
+              top: targetElement.offsetTop - scrollMarginTop,
+              behavior: 'smooth'
+            });
+
+            // Update URL hash
+            history.pushState(null, null, hash);
+          }
+        } else {
+          // If we are not on the homepage, let browser navigate
+          if (document.querySelector('.header-show')) {
+            headerToggle();
+          }
+        }
+      } else {
+        // Regular link navigation (e.g. project.html)
+        if (document.querySelector('.header-show')) {
+          headerToggle();
+        }
       }
     });
-
   });
 
   /**
@@ -43,31 +93,106 @@
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
+    // Inject modern UI
+    preloader.innerHTML = `
+      <div class="preloader-spinner"></div>
+      <div class="preloader-text">Initializing Developer Experience...</div>
+    `;
+    
+    // Prevent scrolling while loading
+    document.body.style.overflow = 'hidden';
+    
     window.addEventListener('load', () => {
-      preloader.remove();
+      // Add fade out animation class
+      preloader.classList.add('preloader-fadeout');
+      
+      // Restore scrolling
+      document.body.style.overflow = '';
+      
+      // Remove from DOM after transition completes
+      setTimeout(() => {
+        preloader.remove();
+      }, 600); // 0.6s matches CSS transition
     });
   }
 
   /**
+   * Mobile Sidebar Setup
+   */
+  function setupMobileSidebar() {
+    // 1. Create overlay
+    if (!document.querySelector('.sidebar-overlay')) {
+      const overlay = document.createElement('div');
+      overlay.className = 'sidebar-overlay';
+      document.body.appendChild(overlay);
+      
+      // Close sidebar on overlay click
+      overlay.addEventListener('click', () => {
+        if (document.querySelector('.header-show')) {
+          headerToggle();
+        }
+      });
+    }
+
+    // 2. Build drawer header if not exists
+    const navmenu = document.querySelector('.navmenu');
+    if (navmenu && !document.querySelector('.navmenu .drawer-header')) {
+      const drawerHeader = document.createElement('div');
+      drawerHeader.className = 'drawer-header';
+
+      // Clone logo first (name/title at the top)
+      const logo = document.querySelector('.header > .logo');
+      if (logo) {
+        drawerHeader.appendChild(logo.cloneNode(true));
+      }
+
+      // Clone profile img second (profile image below name/title)
+      const profileImg = document.querySelector('.header > .profile-img');
+      if (profileImg) {
+        drawerHeader.appendChild(profileImg.cloneNode(true));
+      }
+
+      // Clone social links third (social links at the bottom)
+      const socialLinks = document.querySelector('.header > .social-links');
+      if (socialLinks) {
+        drawerHeader.appendChild(socialLinks.cloneNode(true));
+      }
+
+      navmenu.insertBefore(drawerHeader, navmenu.firstChild);
+    }
+  }
+  
+  setupMobileSidebar();
+
+  /**
    * Scroll top button
    */
+  /**
+   * Scroll top button and sticky header scroll effect
+   */
   let scrollTop = document.querySelector('.scroll-top');
+  const headerEl = document.querySelector('#header');
 
-  function toggleScrollTop() {
+  function handleScrollEffects() {
     if (scrollTop) {
       window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
     }
+    if (headerEl) {
+      window.scrollY > 20 ? headerEl.classList.add('scrolled') : headerEl.classList.remove('scrolled');
+    }
   }
-  scrollTop.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+  if (scrollTop) {
+    scrollTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
 
-  window.addEventListener('load', toggleScrollTop);
-  document.addEventListener('scroll', toggleScrollTop);
+  window.addEventListener('load', handleScrollEffects);
+  document.addEventListener('scroll', handleScrollEffects);
 
   /**
    * Animation on scroll function and init
@@ -223,51 +348,103 @@
 
 
 
-//dark mode //
+// Theme Toggling, Custom Cursor & Scroll Progress
 
-const toggleButton = document.getElementById('dark-mode-toggle');
-const moonIcon = document.getElementById('moon-icon');
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Dark Mode Toggle
+  const toggleButton = document.getElementById('dark-mode-toggle');
+  const moonIcon = document.getElementById('moon-icon');
 
-// Toggle dark mode
-toggleButton.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  
-  // Change icon based on the dark mode status
-  if (document.body.classList.contains('dark-mode')) {
-    moonIcon.classList.remove('bi-moon');
-    moonIcon.classList.add('bi-sun'); // Switch to sun icon in dark mode
-  } else {
-    moonIcon.classList.remove('bi-sun');
-    moonIcon.classList.add('bi-moon'); // Switch back to moon icon in light mode
+  if (toggleButton && moonIcon) {
+    // Toggle dark mode
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      // Change icon based on the dark mode status
+      if (document.body.classList.contains('dark-mode')) {
+        moonIcon.classList.remove('bi-moon');
+        moonIcon.classList.add('bi-sun'); // Switch to sun icon in dark mode
+        localStorage.setItem('theme', 'dark');
+      } else {
+        moonIcon.classList.remove('bi-sun');
+        moonIcon.classList.add('bi-moon'); // Switch back to moon icon in light mode
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Persist theme across sessions on page load
+    if (localStorage.getItem('theme') === 'dark' || document.body.classList.contains('dark-mode')) {
+      document.body.classList.add('dark-mode');
+      moonIcon.classList.remove('bi-moon');
+      moonIcon.classList.add('bi-sun');
+    }
   }
-  
-  // Persist theme across sessions
-  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
-});
 
-// Persist theme across sessions on page load
-if (localStorage.getItem('theme') === 'dark') {
-  document.body.classList.add('dark-mode');
-  moonIcon.classList.remove('bi-moon');
-  moonIcon.classList.add('bi-sun');
-}
+  // 2. Custom Interactive Cursor (Fine pointer devices only)
+  if (window.matchMedia('(pointer: fine)').matches) {
+    const cursor = document.createElement('div');
+    cursor.className = 'custom-cursor';
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'custom-cursor-dot';
+    document.body.appendChild(cursor);
+    document.body.appendChild(cursorDot);
 
+    let cursorX = 0, cursorY = 0;
+    let targetX = 0, targetY = 0;
 
+    document.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      // Immediate translation for inner dot
+      cursorDot.style.left = `${targetX}px`;
+      cursorDot.style.top = `${targetY}px`;
+    });
 
+    // Interpolation loop for smooth trailing ring lag
+    function renderCursor() {
+      cursorX += (targetX - cursorX) * 0.15;
+      cursorY += (targetY - cursorY) * 0.15;
+      cursor.style.left = `${cursorX}px`;
+      cursor.style.top = `${cursorY}px`;
+      requestAnimationFrame(renderCursor);
+    }
+    requestAnimationFrame(renderCursor);
 
-document.addEventListener("DOMContentLoaded", function () {
+    // Hover effect trigger on links, buttons and cards
+    const hoverElements = document.querySelectorAll('a, button, .service-item, .project-item, .progress, [role="button"], input, textarea');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+  }
+
+  // 3. Scroll Progress Bar
+  const scrollProgress = document.createElement('div');
+  scrollProgress.className = 'scroll-progress';
+  document.body.appendChild(scrollProgress);
+
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+    scrollProgress.style.width = scrolled + '%';
+  });
+
+  // 4. Show More/Less Resume Experience Items
   const btn = document.querySelector(".show-more-btn");
   const moreItems = document.querySelector(".more-items");
 
-  btn.addEventListener("click", function () {
-    if (moreItems.style.display === "none") {
-      moreItems.style.display = "block";
-      btn.textContent = "Show Less";
-    } else {
-      moreItems.style.display = "none";
-      btn.textContent = "Show More";
-    }
-  });
+  if (btn && moreItems) {
+    btn.addEventListener("click", () => {
+      if (moreItems.style.display === "none" || moreItems.style.display === "") {
+        moreItems.style.display = "block";
+        btn.textContent = "Show Less";
+      } else {
+        moreItems.style.display = "none";
+        btn.textContent = "Show More";
+      }
+    });
+  }
 });
 
 
